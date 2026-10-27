@@ -1,0 +1,79 @@
+{
+  "name": "Blue DDG Base Strike ECS",
+  "team_id": 1,
+  "targets": [
+    {
+      "lsa_id": 60,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 1,
+          "weapon_id": 524,
+          "weapon_code": "BGM_109C_Tomahawk_III_TLAM_C",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        },
+        {
+          "local_id": 2,
+          "weapon_id": 527,
+          "weapon_code": "BGM_109E_Tomahawk_IV_TMMM",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "Blue DDG Base Strike ECS",
+      "element_type": "Navy Fires",
+      "platform_id": 1265,
+      "loadout": {
+        "id": 14452
+      },
+      "quantity": 1,
+      "assets": [
+        {
+          "id": 2190
+        }
+      ],
+      "origin_id": 2190,
+      "destination_id": 2190,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            148.8391,
+            47.8039
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            137.1696,
+            38.402
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "launch_box",
+          "movement_phase_type": "ingress",
+          "location": [
+            125.5,
+            29.0
+          ],
+          "timestamp": "2025-01-01T08:00:00Z",
+          "target_weapon_allocation_ids": []
+        }
+      ]
+    }
+  ]
+}

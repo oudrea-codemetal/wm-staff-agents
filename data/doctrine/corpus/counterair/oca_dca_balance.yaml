@@ -1,0 +1,18 @@
+description: Counterair requires balancing offensive counterair (OCA) to destroy enemy
+  air power at its source and defensive counterair (DCA) to protect friendly forces.
+  OCA is generally more efficient but DCA cannot be neglected when the enemy retains
+  offensive capability.
+identifiers:
+  standard_rules:
+    AFDP 3-01 Counterair:
+    - counterair/oca_dca_balance
+applicability:
+  type: pattern_match
+  pattern: counterair|dca|oca|air.superiority|cap|sweep
+tags:
+- counterair
+- oca
+- dca
+- air-superiority
+rationale: ''
+caveats: []

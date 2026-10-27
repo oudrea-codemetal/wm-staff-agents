@@ -1,0 +1,51 @@
+{
+  "name": "Red DF-21A Strike Tsuiki",
+  "team_id": 2,
+  "targets": [
+    {
+      "lsa_id": 2203,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 1,
+          "weapon_id": 2,
+          "weapon_code": "DF_21A_CSS_5_Dong_Feng",
+          "quantity": 2,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "DF-21A Battery Strike",
+      "element_type": "Army Fires",
+      "platform_id": null,
+      "loadout": null,
+      "quantity": 2,
+      "assets": [
+        {
+          "id": 1236
+        },
+        {
+          "id": 1238
+        }
+      ],
+      "origin_id": 1235,
+      "destination_id": 1235,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "launch_box",
+          "movement_phase_type": "ingress",
+          "location": [
+            118.6968,
+            26.1046
+          ],
+          "timestamp": "2025-01-01T08:00:00Z",
+          "target_weapon_allocation_ids": []
+        }
+      ]
+    }
+  ]
+}

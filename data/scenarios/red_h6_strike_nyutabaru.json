@@ -1,0 +1,80 @@
+{
+  "name": "Red H-6 Strike Nyutabaru",
+  "team_id": 2,
+  "targets": [
+    {
+      "lsa_id": 2139,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 1,
+          "weapon_id": 1233,
+          "weapon_code": "Type_2_3000kg_Bomb",
+          "quantity": 2,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "Red H-6 Strike Nyutabaru - H-6N",
+      "element_type": "Air Fires",
+      "platform_id": 2607,
+      "loadout": {
+        "id": 2342
+      },
+      "quantity": 3,
+      "assets": [
+        {
+          "id": 323
+        },
+        {
+          "id": 324
+        },
+        {
+          "id": 937
+        }
+      ],
+      "origin_id": 2477,
+      "destination_id": 2477,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            106.8011,
+            26.5383
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            118.6506,
+            29.0192
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "launch_box",
+          "movement_phase_type": "ingress",
+          "location": [
+            130.5,
+            31.5
+          ],
+          "timestamp": "2025-01-01T08:00:00Z",
+          "target_weapon_allocation_ids": [
+            1
+          ]
+        }
+      ]
+    }
+  ]
+}

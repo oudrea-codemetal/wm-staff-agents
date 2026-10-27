@@ -1,0 +1,41 @@
+# Scenario configuration for the South China Sea Conflict.
+# An administrator edits this file to change the scenario. The title
+# must remain generic — do not use operation-specific names.
+
+name: South China Sea Conflict
+description: >-
+  A South China Sea contingency: Red expeditionary forces seek control of
+  maritime chokepoints and partner territory. Blue combined forces must
+  maintain freedom of navigation, defend partner positions, and interdict
+  Red's power projection. Played as a turn-based wargame with integrated
+  air and maritime operations.
+
+# WarMatrix game binding (set after loading scenario data into WarMatrix).
+# When warmatrix_game_id is set and WarMatrix is reachable, the game uses
+# live WarMatrix ITO/dice adjudication. Otherwise it uses synthetic data.
+warmatrix_game_id: 3
+warmatrix_move_id: 7
+warmatrix_team_ids:
+  red: 2
+  blue: 1
+
+red:
+  side: red
+  name: Red Expeditionary Force
+  bases: [Fujian Coast, Hainan, Woody Island, Subi Reef]
+  primary_platforms: [J-16, J-20, H-6K, Type 055 DDG, Type 071 LPD, KJ-500]
+  objective: >-
+    Establish control over the strait and Bashi Channel chokepoints,
+    neutralise Blue air defences, and secure lodgment for follow-on forces.
+
+blue:
+  side: blue
+  name: Blue Combined Defence Force
+  bases: [Kadena, Guam Andersen, Taiwan West, Clark, Iwakuni]
+  primary_platforms: [F-15C, F-16C, F-22A, F-35A, B-52H, E-3G, KC-135, Arleigh Burke DDG]
+  objective: >-
+    Defend partner territory, maintain air superiority over the strait,
+    interdict Red amphibious and strike forces, and preserve freedom of navigation.
+
+max_turns: 6
+turn_duration_hours: 12

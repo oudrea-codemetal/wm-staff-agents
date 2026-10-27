@@ -1,0 +1,83 @@
+{
+  "name": "Blue Tanker Track",
+  "team_id": 1,
+  "targets": [
+    {
+      "lsa_id": 2268,
+      "subtargets": [],
+      "weapon_allocations": []
+    },
+    {
+      "lsa_id": 2354,
+      "subtargets": [],
+      "weapon_allocations": []
+    },
+    {
+      "lsa_id": 1716,
+      "subtargets": [],
+      "weapon_allocations": []
+    }
+  ],
+  "elements": [
+    {
+      "name": "Blue Tanker Track - KC-135R",
+      "element_type": "ISR",
+      "platform_id": 2759,
+      "loadout": null,
+      "quantity": 2,
+      "assets": [
+        {
+          "id": 1935
+        },
+        {
+          "id": 1165
+        }
+      ],
+      "origin_id": 2463,
+      "destination_id": 2463,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            127.77,
+            26.3586
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            130.885,
+            24.1793
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "cap",
+          "movement_phase_type": "ingress",
+          "location": [
+            134.0,
+            22.0
+          ],
+          "timestamp": "2025-01-01T06:00:00Z",
+          "target_weapon_allocation_ids": [],
+          "route_cap": {
+            "length_km": 200.0,
+            "width_km": 100.0,
+            "heading_deg": 0.0,
+            "start_time": "2025-01-01T06:00:00Z",
+            "end_time": "2025-01-01T18:00:00Z",
+            "sub_vul_minutes": 720
+          }
+        }
+      ]
+    }
+  ]
+}

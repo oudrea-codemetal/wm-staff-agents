@@ -1,0 +1,16 @@
+description: Air interdiction delays, disrupts, or destroys enemy forces before they
+  can affect friendly operations. Effective interdiction requires timely intelligence,
+  air superiority in the interdiction area, and coordination with surface manoeuvre.
+identifiers:
+  standard_rules:
+    AFDP 3-03 Counterland:
+    - counterland/interdiction
+applicability:
+  type: pattern_match
+  pattern: interdict|counterland|ground.*force|air.interdiction
+tags:
+- counterland
+- interdiction
+- air-ground
+rationale: ''
+caveats: []

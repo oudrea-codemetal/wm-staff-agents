@@ -1,0 +1,136 @@
+{
+  "name": "Red Flanker Sweep",
+  "team_id": 2,
+  "targets": [
+    {
+      "lsa_id": 1036,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 1,
+          "weapon_id": 913,
+          "weapon_code": "PL_12_SD_10",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        },
+        {
+          "local_id": 2,
+          "weapon_id": 919,
+          "weapon_code": "PL_9",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "lsa_id": 1037,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 101,
+          "weapon_id": 913,
+          "weapon_code": "PL_12_SD_10",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T09:00:00Z"
+        },
+        {
+          "local_id": 102,
+          "weapon_id": 919,
+          "weapon_code": "PL_9",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "lsa_id": 1038,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 201,
+          "weapon_id": 913,
+          "weapon_code": "PL_12_SD_10",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T10:00:00Z"
+        },
+        {
+          "local_id": 202,
+          "weapon_id": 919,
+          "weapon_code": "PL_9",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T10:00:00Z"
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "Red Flanker Sweep - J-15S",
+      "element_type": "OCA/Sweep",
+      "platform_id": 2707,
+      "loadout": {
+        "id": 8422
+      },
+      "quantity": 4,
+      "assets": [
+        {
+          "id": 170
+        },
+        {
+          "id": 121
+        },
+        {
+          "id": 122
+        },
+        {
+          "id": 123
+        }
+      ],
+      "origin_id": 166,
+      "destination_id": 166,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            116.6137,
+            12.6765
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            121.0568,
+            20.8383
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "cap",
+          "movement_phase_type": "ingress",
+          "location": [
+            125.5,
+            29.0
+          ],
+          "timestamp": "2025-01-01T06:00:00Z",
+          "target_weapon_allocation_ids": [],
+          "route_cap": {
+            "length_km": 200.0,
+            "width_km": 100.0,
+            "heading_deg": 135,
+            "start_time": "2025-01-01T06:00:00Z",
+            "end_time": "2025-01-01T18:00:00Z",
+            "sub_vul_minutes": 240
+          }
+        }
+      ]
+    }
+  ]
+}

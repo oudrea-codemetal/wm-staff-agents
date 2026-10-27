@@ -1,0 +1,16 @@
+description: Friction — the gap between plan and reality — is inherent in war. Plans
+  must be simple, flexible, and account for uncertainty. Success depends on adaptability
+  more than prediction.
+identifiers:
+  standard_rules:
+    MCDP 1 Warfighting:
+    - warfighting/friction
+applicability:
+  type: pattern_match
+  pattern: friction|uncertainty|plan.*realit|adaptab
+tags:
+- warfighting
+- friction
+- uncertainty
+rationale: ''
+caveats: []

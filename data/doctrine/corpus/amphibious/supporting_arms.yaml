@@ -1,0 +1,17 @@
+description: Supporting arms (naval gunfire, close air support, artillery) must be
+  integrated through a single coordination agency to avoid fratricide and maximise
+  effects. Deconfliction of fires in time, space, and purpose is essential.
+identifiers:
+  standard_rules:
+    NTTP 3-02.2 Supporting Arms:
+    - amphibious/supporting_arms
+applicability:
+  type: pattern_match
+  pattern: supporting.arms|naval.gunfire|cas|fires.*coord|deconflict
+tags:
+- amphibious
+- supporting-arms
+- fires
+- deconfliction
+rationale: ''
+caveats: []

@@ -1,0 +1,17 @@
+description: Tempo — operating at a pace the enemy cannot match — creates opportunities
+  and compounds enemy friction. Rapid decision cycles (OODA) can overwhelm an opponent
+  even when forces are otherwise balanced.
+identifiers:
+  standard_rules:
+    MCDP 1 Warfighting:
+    - warfighting/tempo
+applicability:
+  type: pattern_match
+  pattern: tempo|ooda|decision.cycle|rapid.*decision|initiative
+tags:
+- warfighting
+- tempo
+- ooda
+- decision-cycle
+rationale: ''
+caveats: []

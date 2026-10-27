@@ -1,0 +1,16 @@
+description: 'Ship-to-shore movement is the critical vulnerability window in amphibious
+  operations: landing forces are concentrated, slow, and exposed. It requires air
+  superiority, naval gunfire support, and rapid build-up of combat power ashore.'
+identifiers:
+  standard_rules:
+    NTTP 3-02.1 Ship-to-Shore Movement:
+    - amphibious/ship_to_shore
+applicability:
+  type: pattern_match
+  pattern: amphibious|ship.to.shore|landing|beach|forcible.entry
+tags:
+- amphibious
+- ship-to-shore
+- vulnerability
+rationale: ''
+caveats: []

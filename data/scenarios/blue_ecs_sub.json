@@ -1,0 +1,117 @@
+{
+  "name": "Blue ECS Sub Patrol",
+  "team_id": 1,
+  "targets": [
+    {
+      "lsa_id": 2268,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 1,
+          "weapon_id": 1244,
+          "weapon_code": "UGM_84B2_Harpoon_IB",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        },
+        {
+          "local_id": 2,
+          "weapon_id": 1237,
+          "weapon_code": "UGM_109C_Tomahawk_III_TLAM_C",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "lsa_id": 2354,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 101,
+          "weapon_id": 1244,
+          "weapon_code": "UGM_84B2_Harpoon_IB",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T09:00:00Z"
+        },
+        {
+          "local_id": 102,
+          "weapon_id": 1237,
+          "weapon_code": "UGM_109C_Tomahawk_III_TLAM_C",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "lsa_id": 1716,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 201,
+          "weapon_id": 1244,
+          "weapon_code": "UGM_84B2_Harpoon_IB",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T10:00:00Z"
+        },
+        {
+          "local_id": 202,
+          "weapon_id": 1237,
+          "weapon_code": "UGM_109C_Tomahawk_III_TLAM_C",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T10:00:00Z"
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "Blue ECS Sub",
+      "element_type": "Navy Fires",
+      "platform_id": 4988,
+      "loadout": null,
+      "quantity": 1,
+      "assets": [
+        {
+          "id": 1465
+        }
+      ],
+      "origin_id": 2467,
+      "destination_id": 2467,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            173,
+            1.5
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            149.25,
+            15.25
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "launch_box",
+          "movement_phase_type": "ingress",
+          "location": [
+            125.5,
+            29.0
+          ],
+          "timestamp": "2025-01-01T08:00:00Z",
+          "target_weapon_allocation_ids": []
+        }
+      ]
+    }
+  ]
+}

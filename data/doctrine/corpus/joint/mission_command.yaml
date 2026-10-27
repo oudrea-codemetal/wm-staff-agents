@@ -1,0 +1,16 @@
+description: Mission command empowers subordinate leaders to exercise disciplined
+  initiative within the commander's intent. Orders should state what to achieve and
+  why, leaving how to the executor where possible.
+identifiers:
+  standard_rules:
+    AFDP 3-0 Operations:
+    - joint/mission_command
+applicability:
+  type: pattern_match
+  pattern: command|intent|mission.command|subordinate
+tags:
+- command
+- mission-command
+- intent
+rationale: ''
+caveats: []

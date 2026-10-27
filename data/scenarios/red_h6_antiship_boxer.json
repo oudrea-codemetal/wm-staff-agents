@@ -1,0 +1,80 @@
+{
+  "name": "Red H-6 Anti-Ship Boxer",
+  "team_id": 2,
+  "targets": [
+    {
+      "lsa_id": 589,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 1,
+          "weapon_id": 620,
+          "weapon_code": "Dong_Hai_10",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T07:30:00Z"
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "Red H-6 Anti-Ship Boxer - H-6N",
+      "element_type": "Air Fires",
+      "platform_id": 2607,
+      "loadout": {
+        "id": 2342
+      },
+      "quantity": 3,
+      "assets": [
+        {
+          "id": 109
+        },
+        {
+          "id": 110
+        },
+        {
+          "id": 111
+        }
+      ],
+      "origin_id": 2491,
+      "destination_id": 2491,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            113.37666,
+            22.006666
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            117.5,
+            23.0
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "launch_box",
+          "movement_phase_type": "ingress",
+          "location": [
+            121.0,
+            23.5
+          ],
+          "timestamp": "2025-01-01T07:00:00Z",
+          "target_weapon_allocation_ids": [
+            1
+          ]
+        }
+      ]
+    }
+  ]
+}

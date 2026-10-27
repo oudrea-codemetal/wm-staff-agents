@@ -1,0 +1,16 @@
+description: Prioritise targets by their contribution to enemy centres of gravity
+  and the commander's intent. A target's military value alone does not determine priority;
+  consider its role in the enemy's decision cycle.
+identifiers:
+  standard_rules:
+    AFDP 3-60 Targeting:
+    - targeting/prioritisation
+applicability:
+  type: pattern_match
+  pattern: targeting|priorit|objective|commander.*intent
+tags:
+- targeting
+- prioritisation
+- cog
+rationale: ''
+caveats: []

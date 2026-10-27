@@ -1,0 +1,17 @@
+description: Agile Combat Employment disperses air assets across multiple locations
+  to complicate enemy targeting and sustain sortie generation under attack. Dispersal
+  trades mass for survivability; commanders must weigh concentration against resilience.
+identifiers:
+  standard_rules:
+    AFDN 1-21 ACE:
+    - counterair/ace_dispersal
+applicability:
+  type: pattern_match
+  pattern: dispers|basing|survivab|ace|agile
+tags:
+- ace
+- dispersal
+- survivability
+- basing
+rationale: ''
+caveats: []

@@ -1,0 +1,62 @@
+{
+  "name": "Blue Air Assault",
+  "team_id": 1,
+  "targets": [],
+  "elements": [
+    {
+      "name": "Blue Air Assault - C-17A",
+      "element_type": "Air Assault",
+      "platform_id": 1150,
+      "loadout": null,
+      "quantity": 1,
+      "assets": [
+        {
+          "id": 519
+        }
+      ],
+      "origin_id": 2499,
+      "destination_id": 2499,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            137.7008,
+            34.7503
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            129.5004,
+            29.3752
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "air_assault",
+          "movement_phase_type": "ingress",
+          "location": [
+            121.3,
+            24.0
+          ],
+          "timestamp": "2025-01-01T10:00:00Z",
+          "target_weapon_allocation_ids": []
+        }
+      ],
+      "drop_manifest": [
+        {
+          "asset_type": "PERS",
+          "quantity": 200
+        }
+      ]
+    }
+  ]
+}

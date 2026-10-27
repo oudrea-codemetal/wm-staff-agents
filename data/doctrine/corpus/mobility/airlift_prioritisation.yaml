@@ -1,0 +1,16 @@
+description: 'Airlift is a finite resource: prioritise by operational urgency and
+  the commander''s intent. Consider airfield capacity, threat environment, and the
+  balance between intra-theatre and inter-theatre lift.'
+identifiers:
+  standard_rules:
+    AFDP 3-36 Mobility Operations:
+    - mobility/airlift_prioritisation
+applicability:
+  type: pattern_match
+  pattern: airlift|sustainment|logistics|supply
+tags:
+- mobility
+- airlift
+- sustainment
+rationale: ''
+caveats: []

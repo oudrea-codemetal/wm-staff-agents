@@ -1,0 +1,398 @@
+{
+  "kind": "staff-engine.graph",
+  "version": 1,
+  "savedAt": "2026-10-27T00:00:00.000Z",
+  "doc": {
+    "nodes": [
+      {
+        "id": "n_source",
+        "label": "GAME STATE",
+        "type": "source",
+        "config": {
+          "origin": "WarMatrix game state and previous turn outcome"
+        },
+        "outputType": "ty_force_commander",
+        "components": []
+      },
+      {
+        "id": "n_force_commander",
+        "label": "FORCE COMMANDER",
+        "type": "agent",
+        "config": {
+          "system": "You are the Force Commander in the South China Sea Conflict wargame. Overall commander for the South China Sea Conflict scenario. Sets campaign objectives, allocates forces, and approves the air tasking order.",
+          "task": "{{input}}",
+          "model": "gpt-4o-mini"
+        },
+        "inputType": "ty_force_commander",
+        "outputType": "ty_force_commander",
+        "components": []
+      },
+      {
+        "id": "n_intelligence_officer",
+        "label": "INTELLIGENCE OFFICER",
+        "type": "agent",
+        "config": {
+          "system": "You are the Intelligence Officer in the South China Sea Conflict wargame. Produces the intelligence picture: enemy order of battle, target nominations, and threat assessments.",
+          "task": "{{input}}",
+          "model": "gpt-4o-mini"
+        },
+        "inputType": "ty_intelligence_officer",
+        "outputType": "ty_intelligence_officer",
+        "components": []
+      },
+      {
+        "id": "n_targeteer",
+        "label": "TARGETEER / WEAPONEERING CELL",
+        "type": "agent",
+        "config": {
+          "system": "You are the Targeteer / Weaponeering Cell in the South China Sea Conflict wargame. Determines whether nominated targets can be struck — weapon-target pairing, collateral considerations, and feasibility.",
+          "task": "{{input}}",
+          "model": "gpt-4o-mini"
+        },
+        "inputType": "ty_targeteer",
+        "outputType": "ty_targeteer",
+        "components": []
+      },
+      {
+        "id": "n_support_planner",
+        "label": "SUPPORT PLANNER",
+        "type": "agent",
+        "config": {
+          "system": "You are the Support Planner in the South China Sea Conflict wargame. Plans enabling capabilities: aerial refuelling, airlift, sustainment, and basing.",
+          "task": "{{input}}",
+          "model": "gpt-4o-mini"
+        },
+        "inputType": "ty_support_planner",
+        "outputType": "ty_support_planner",
+        "components": []
+      },
+      {
+        "id": "n_air_wing_commander",
+        "label": "AIR WING COMMANDER",
+        "type": "agent",
+        "config": {
+          "system": "You are the Air Wing Commander in the South China Sea Conflict wargame. Commands the air wing: fighters, bombers, and ISR. Converts the tasking order into specific sorties and ITO entries.",
+          "task": "{{input}}",
+          "model": "gpt-4o-mini"
+        },
+        "inputType": "ty_air_wing_commander",
+        "outputType": "ty_air_wing_commander",
+        "components": []
+      },
+      {
+        "id": "n_maritime_commander",
+        "label": "MARITIME COMMANDER",
+        "type": "agent",
+        "config": {
+          "system": "You are the Maritime Commander in the South China Sea Conflict wargame. Commands surface and subsurface forces — destroyers, amphibious ships, and submarines.",
+          "task": "{{input}}",
+          "model": "gpt-4o-mini"
+        },
+        "inputType": "ty_maritime_commander",
+        "outputType": "ty_maritime_commander",
+        "components": []
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_source_to_fc",
+        "from": "n_source",
+        "to": "n_force_commander",
+        "mods": {
+          "retries": 1,
+          "timeout": 30
+        }
+      },
+      {
+        "id": "e_intelligence_officer_to_force_commander",
+        "from": "n_force_commander",
+        "to": "n_intelligence_officer",
+        "mods": {
+          "retries": 1,
+          "timeout": 120
+        }
+      },
+      {
+        "id": "e_targeteer_to_force_commander",
+        "from": "n_force_commander",
+        "to": "n_targeteer",
+        "mods": {
+          "retries": 1,
+          "timeout": 120
+        }
+      },
+      {
+        "id": "e_support_planner_to_force_commander",
+        "from": "n_force_commander",
+        "to": "n_support_planner",
+        "mods": {
+          "retries": 1,
+          "timeout": 120
+        }
+      },
+      {
+        "id": "e_air_wing_commander_to_force_commander",
+        "from": "n_force_commander",
+        "to": "n_air_wing_commander",
+        "mods": {
+          "retries": 1,
+          "timeout": 120
+        }
+      },
+      {
+        "id": "e_maritime_commander_to_force_commander",
+        "from": "n_force_commander",
+        "to": "n_maritime_commander",
+        "mods": {
+          "retries": 1,
+          "timeout": 120
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "id": "ty_force_commander",
+      "name": "Force Commander",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "summary",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "id": "f1",
+          "key": "rationale",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "id": "f2",
+          "key": "doctrine_refs",
+          "kind": "array",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "ty_intelligence_officer",
+      "name": "Intelligence Officer",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "summary",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "id": "f1",
+          "key": "rationale",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "id": "f2",
+          "key": "doctrine_refs",
+          "kind": "array",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "ty_targeteer",
+      "name": "Targeteer / Weaponeering Cell",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "summary",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "id": "f1",
+          "key": "rationale",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "id": "f2",
+          "key": "doctrine_refs",
+          "kind": "array",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "ty_support_planner",
+      "name": "Support Planner",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "summary",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "id": "f1",
+          "key": "rationale",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "id": "f2",
+          "key": "doctrine_refs",
+          "kind": "array",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "ty_air_wing_commander",
+      "name": "Air Wing Commander",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "summary",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "id": "f1",
+          "key": "rationale",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "id": "f2",
+          "key": "doctrine_refs",
+          "kind": "array",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "ty_maritime_commander",
+      "name": "Maritime Commander",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "summary",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "id": "f1",
+          "key": "rationale",
+          "kind": "string",
+          "required": true
+        },
+        {
+          "id": "f2",
+          "key": "doctrine_refs",
+          "kind": "array",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "configs": [],
+  "positions": [
+    {
+      "id": "ps_force_commander",
+      "name": "Force Commander",
+      "version": 1,
+      "note": "Overall commander for the South China Sea Conflict scenario. Sets campaign objectives, allocates forces, and approves the air tasking order."
+    },
+    {
+      "id": "ps_intelligence_officer",
+      "name": "Intelligence Officer",
+      "version": 1,
+      "note": "Produces the intelligence picture: enemy order of battle, target nominations, and threat assessments."
+    },
+    {
+      "id": "ps_targeteer",
+      "name": "Targeteer / Weaponeering Cell",
+      "version": 1,
+      "note": "Determines whether nominated targets can be struck — weapon-target pairing, collateral considerations, and feasibility."
+    },
+    {
+      "id": "ps_support_planner",
+      "name": "Support Planner",
+      "version": 1,
+      "note": "Plans enabling capabilities: aerial refuelling, airlift, sustainment, and basing."
+    },
+    {
+      "id": "ps_air_wing_commander",
+      "name": "Air Wing Commander",
+      "version": 1,
+      "note": "Commands the air wing: fighters, bombers, and ISR. Converts the tasking order into specific sorties and ITO entries."
+    },
+    {
+      "id": "ps_maritime_commander",
+      "name": "Maritime Commander",
+      "version": 1,
+      "note": "Commands surface and subsurface forces — destroyers, amphibious ships, and submarines."
+    }
+  ],
+  "measures": [
+    {
+      "id": "ms_time",
+      "name": "Time",
+      "unit": "min",
+      "accrue": "path",
+      "note": "Wall-clock per turn"
+    },
+    {
+      "id": "ms_tokens",
+      "name": "Tokens",
+      "unit": "ktok",
+      "accrue": "total",
+      "note": "LLM tokens per turn"
+    }
+  ],
+  "graphs": [],
+  "self": {
+    "name": "South China Sea Conflict - Joint Task Force",
+    "budgets": {
+      "ms_time": 30
+    },
+    "evals": []
+  },
+  "layout": {
+    "n_source": [
+      600,
+      20
+    ],
+    "n_force_commander": [
+      600,
+      120
+    ],
+    "n_intelligence_officer": [
+      200,
+      340
+    ],
+    "n_targeteer": [
+      600,
+      340
+    ],
+    "n_support_planner": [
+      1000,
+      340
+    ],
+    "n_air_wing_commander": [
+      350,
+      560
+    ],
+    "n_maritime_commander": [
+      850,
+      560
+    ]
+  }
+}

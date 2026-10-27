@@ -1,0 +1,17 @@
+description: 'Aerial refuelling extends range and endurance but requires careful planning:
+  tanker orbit geometry, fuel offload calculations, receiver-tanker compatibility,
+  and protection of the tanker itself in contested airspace.'
+identifiers:
+  standard_rules:
+    AFDP 3-36 Mobility Operations:
+    - mobility/tanker_planning
+applicability:
+  type: pattern_match
+  pattern: tanker|refuel|aerial.*refuel|support.*plan
+tags:
+- mobility
+- tanker
+- refuelling
+- support
+rationale: ''
+caveats: []

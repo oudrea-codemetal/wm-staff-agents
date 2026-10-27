@@ -1,0 +1,17 @@
+description: 'Mission analysis drives all subsequent planning: understand the higher
+  commander''s intent, identify specified and implied tasks, determine constraints
+  and restraints, and produce a clear mission statement before developing courses
+  of action.'
+identifiers:
+  standard_rules:
+    NWP 5-01 Navy Planning:
+    - navy/mission_analysis
+applicability:
+  type: pattern_match
+  pattern: mission.analysis|planning|coa|course.of.action|commander.*intent
+tags:
+- planning
+- mission-analysis
+- coa
+rationale: ''
+caveats: []

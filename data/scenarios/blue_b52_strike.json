@@ -1,0 +1,105 @@
+{
+  "name": "Blue B-52 Maritime Strike",
+  "team_id": 1,
+  "targets": [
+    {
+      "lsa_id": 2268,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 1,
+          "weapon_id": 891,
+          "weapon_code": "Mk84_2000lb_Bomb",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "lsa_id": 2354,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 101,
+          "weapon_id": 891,
+          "weapon_code": "Mk84_2000lb_Bomb",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "lsa_id": 1716,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 201,
+          "weapon_id": 891,
+          "weapon_code": "Mk84_2000lb_Bomb",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T10:00:00Z"
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "Blue B-52 Strike - B-52H",
+      "element_type": "Air Fires",
+      "platform_id": 647,
+      "loadout": {
+        "id": 2644
+      },
+      "quantity": 2,
+      "assets": [
+        {
+          "id": 536
+        },
+        {
+          "id": 1755
+        }
+      ],
+      "origin_id": 2470,
+      "destination_id": 2470,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            139.3488,
+            35.746
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            132.4244,
+            32.373
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "launch_box",
+          "movement_phase_type": "ingress",
+          "location": [
+            125.5,
+            29.0
+          ],
+          "timestamp": "2025-01-01T08:00:00Z",
+          "target_weapon_allocation_ids": [
+            1,
+            101,
+            201
+          ]
+        }
+      ]
+    }
+  ]
+}

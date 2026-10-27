@@ -1,0 +1,16 @@
+description: Concentration of effects matters more than concentration of forces. Mass
+  combat power at the decisive point and time, accepting risk elsewhere. Dispersion
+  is the default; concentration is the exception that must be justified.
+identifiers:
+  standard_rules:
+    JP 3-0:
+    - joint/mass_concentration
+applicability:
+  type: pattern_match
+  pattern: mass|concentrat|decisive.point|force.*allocat
+tags:
+- principles-of-war
+- mass
+- concentration
+rationale: ''
+caveats: []

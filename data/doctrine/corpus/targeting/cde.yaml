@@ -1,0 +1,17 @@
+description: Collateral damage estimation is integral to target approval. Assess civilian
+  presence, dual-use infrastructure, and proximity to protected sites before recommending
+  a strike. Higher collateral risk requires higher approval authority.
+identifiers:
+  standard_rules:
+    AFDP 3-60 Targeting:
+    - targeting/cde
+applicability:
+  type: pattern_match
+  pattern: collateral|civilian|strike|approval
+tags:
+- targeting
+- collateral
+- cde
+- law-of-war
+rationale: ''
+caveats: []

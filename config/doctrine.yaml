@@ -1,0 +1,74 @@
+# Doctrine corpus pointer.
+# Points to the doctrine documents and the DCF convention directory.
+# An administrator can add documents here; the corpus builder picks them up.
+
+corpus_name: south_china_sea_doctrine
+corpus_dir: data/doctrine/corpus
+
+# Source documents (open-source, stored in data/doctrine/sources/).
+# Each should have a public URL or local path.
+sources:
+  - document: AFDP 3-01 Counterair
+    publication: Air Force Doctrine Publication 3-01, Counterair Operations (2023)
+    path: data/doctrine/sources/3-01-AFDP-COUNTERAIR.pdf
+    url: https://www.doctrine.af.mil/Doctrine-Publications/AFDP-3-01-Counterair-Ops/
+
+  - document: AFDP 3-03 Counterland
+    publication: Air Force Doctrine Publication 3-03, Counterland Operations
+    path: data/doctrine/sources/3-03-AFDP-COUNTERLAND.pdf
+    url: https://www.doctrine.af.mil/Doctrine-Publications/AFDP-3-03-Counterland-Ops/
+
+  - document: AFDP 3-36 Mobility Operations
+    publication: Air Force Doctrine Publication 3-36, Air Mobility Operations
+    path: data/doctrine/sources/3-36-AFDP-MOBILITY-OPS.pdf
+    url: https://www.doctrine.af.mil/Doctrine-Publications/AFDP-3-36-Mobility-Ops/
+
+  - document: AFDP 3-60 Targeting
+    publication: Air Force Doctrine Publication 3-60, Targeting (2021)
+    path: data/doctrine/sources/3-60-AFDP-TARGETING.pdf
+    url: https://www.doctrine.af.mil/Doctrine-Publications/AFDP-3-60-Targeting/
+
+  - document: AFDN 1-21 ACE
+    publication: Air Force Doctrine Note 1-21, Agile Combat Employment (2022)
+    path: data/doctrine/sources/AFDN-1-21-ACE.pdf
+    url: https://www.doctrine.af.mil/Doctrine-Publications/AFDN-1-21-ACE/
+
+  - document: AFDP 3-0 Operations
+    publication: Air Force Doctrine Publication 3-0, Operations (2023)
+    path: data/doctrine/sources/AFDP3-0Operations.pdf
+    url: https://www.doctrine.af.mil/Doctrine-Publications/AFDP-3-0-Operations/
+
+  - document: JP 3-02 Amphibious Operations
+    publication: Joint Publication 3-02, Amphibious Operations
+    path: data/doctrine/sources/JP-3-02-Amphibious-Operations.pdf
+    url: https://www.jcs.mil/Doctrine/Joint-Doct-Pubs/3-0-Operations-Series/
+
+  - document: JP 3-18 Joint Forcible Entry
+    publication: Joint Publication 3-18, Joint Forcible Entry Operations
+    path: data/doctrine/sources/JP-3-18-Joint-Forcible-Entry.pdf
+    url: https://www.jcs.mil/Doctrine/Joint-Doct-Pubs/3-0-Operations-Series/
+
+  - document: MCDP 1 Warfighting
+    publication: Marine Corps Doctrinal Publication 1, Warfighting
+    path: data/doctrine/sources/MCDP-1-Warfighting.pdf
+    url: https://www.marines.mil/Doctrine/
+
+  - document: NTTP 3-02.1 Ship-to-Shore Movement
+    publication: NTTP 3-02.1M / MCWP 3-31.5, Ship-to-Shore Movement (2020)
+    path: data/doctrine/sources/NTTP-3-02.1-Ship-to-Shore.pdf
+    url: https://www.navy.mil/Doctrine/
+
+  - document: NTTP 3-02.2 Supporting Arms
+    publication: NTTP 3-02.2 / MCWP 3-31.6, Supporting Arms Coordination (2019)
+    path: data/doctrine/sources/NTTP-3-02.2-Supporting-Arms.pdf
+    url: https://www.navy.mil/Doctrine/
+
+  - document: NWP 5-01 Navy Planning
+    publication: Navy Warfare Publication 5-01, Navy Planning (Apr 2025 Erratum)
+    path: data/doctrine/sources/NWP5-01-Navy-Planning.pdf
+    url: https://www.navy.mil/Doctrine/
+
+  # M&S tool reference (not doctrine, but useful for WarMatrix grounding)
+  - document: M&S Ground Tool Info
+    publication: M&S Ground Tool Reference
+    path: data/doctrine/sources/M-and-S-ground-tool-info.pdf

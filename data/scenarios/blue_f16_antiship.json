@@ -1,0 +1,132 @@
+{
+  "name": "Blue F-16 Anti-Ship Strike",
+  "team_id": 1,
+  "targets": [
+    {
+      "lsa_id": 2268,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 1,
+          "weapon_id": 425,
+          "weapon_code": "AIM_9M_Sidewinder",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        },
+        {
+          "local_id": 2,
+          "weapon_id": 673,
+          "weapon_code": "GBU_15_V_1_CWW_IR_AP",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "lsa_id": 2354,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 101,
+          "weapon_id": 425,
+          "weapon_code": "AIM_9M_Sidewinder",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T09:00:00Z"
+        },
+        {
+          "local_id": 102,
+          "weapon_id": 673,
+          "weapon_code": "GBU_15_V_1_CWW_IR_AP",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "lsa_id": 1716,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 201,
+          "weapon_id": 425,
+          "weapon_code": "AIM_9M_Sidewinder",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T10:00:00Z"
+        },
+        {
+          "local_id": 202,
+          "weapon_id": 673,
+          "weapon_code": "GBU_15_V_1_CWW_IR_AP",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T10:00:00Z"
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "Blue F-16 Anti-Ship - F-16C",
+      "element_type": "Air Fires",
+      "platform_id": 2242,
+      "loadout": {
+        "id": 2308
+      },
+      "quantity": 3,
+      "assets": [
+        {
+          "id": 1578
+        },
+        {
+          "id": 230
+        },
+        {
+          "id": 2260
+        }
+      ],
+      "origin_id": 2484,
+      "destination_id": 2484,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            136.9231,
+            35.2561
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            131.2116,
+            32.1281
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "launch_box",
+          "movement_phase_type": "ingress",
+          "location": [
+            125.5,
+            29.0
+          ],
+          "timestamp": "2025-01-01T08:00:00Z",
+          "target_weapon_allocation_ids": [
+            1,
+            2,
+            101,
+            102,
+            201,
+            202
+          ]
+        }
+      ]
+    }
+  ]
+}

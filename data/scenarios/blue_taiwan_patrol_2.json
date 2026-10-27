@@ -1,0 +1,119 @@
+{
+  "name": "Blue Taiwan Patrol #2",
+  "team_id": 1,
+  "targets": [
+    {
+      "lsa_id": 2268,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 1,
+          "weapon_id": 532,
+          "weapon_code": "BGM_109C_Tomahawk_III_TLAM_C",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        },
+        {
+          "local_id": 2,
+          "weapon_id": 937,
+          "weapon_code": "RGM_84D_Harpoon_ID",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        }
+      ]
+    },
+    {
+      "lsa_id": 2354,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 101,
+          "weapon_id": 532,
+          "weapon_code": "BGM_109C_Tomahawk_III_TLAM_C",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T09:00:00Z"
+        },
+        {
+          "local_id": 102,
+          "weapon_id": 937,
+          "weapon_code": "RGM_84D_Harpoon_ID",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "lsa_id": 1716,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 201,
+          "weapon_id": 532,
+          "weapon_code": "BGM_109C_Tomahawk_III_TLAM_C",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T10:00:00Z"
+        },
+        {
+          "local_id": 202,
+          "weapon_id": 937,
+          "weapon_code": "RGM_84D_Harpoon_ID",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T10:00:00Z"
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "Blue Taiwan Patrol - DDG",
+      "element_type": "Navy Fires",
+      "platform_id": 1298,
+      "loadout": {
+        "id": 12352
+      },
+      "quantity": 1,
+      "assets": [
+        {
+          "id": 677
+        }
+      ],
+      "origin_id": 2350,
+      "destination_id": 2350,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            135.6632,
+            29.9049
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            127.5816,
+            27.2025
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "launch_box",
+          "movement_phase_type": "ingress",
+          "location": [
+            119.5,
+            24.5
+          ],
+          "timestamp": "2025-01-01T08:00:00Z",
+          "target_weapon_allocation_ids": []
+        }
+      ]
+    }
+  ]
+}

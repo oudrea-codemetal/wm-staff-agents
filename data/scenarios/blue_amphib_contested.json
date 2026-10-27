@@ -1,0 +1,61 @@
+{
+  "name": "Blue Amphib Contested",
+  "team_id": 1,
+  "targets": [],
+  "elements": [
+    {
+      "name": "Blue Amphib Contested - LHD",
+      "element_type": "Amphibious Assault",
+      "platform_id": 2838,
+      "loadout": null,
+      "quantity": 1,
+      "assets": [
+        {
+          "id": 589
+        }
+      ],
+      "origin_id": 589,
+      "destination_id": null,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            132.2167,
+            34.1833
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            126.8583,
+            28.8417
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "debarkation",
+          "movement_phase_type": "ingress",
+          "location": [
+            121.5,
+            23.5
+          ],
+          "timestamp": "2025-01-01T08:00:00Z",
+          "target_weapon_allocation_ids": [],
+          "route_debark": {
+            "connector_type_id": 3,
+            "time_on_arrival": "2025-01-01T08:00:00Z",
+            "destination_id": 498
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+description: 'Air defence should be layered: long-range intercept, medium-range engagement,
+  and point defence. No single system provides complete coverage; integration across
+  platforms and domains creates overlapping protection.'
+identifiers:
+  standard_rules:
+    AFDP 3-01 Counterair:
+    - counterair/layered_defence
+applicability:
+  type: pattern_match
+  pattern: air.defen|iads|sam|intercept|layered
+tags:
+- counterair
+- air-defence
+- layered
+- iads
+rationale: ''
+caveats: []

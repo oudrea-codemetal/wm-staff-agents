@@ -1,0 +1,78 @@
+# Role hierarchy for the South China Sea Conflict wargame.
+# An administrator edits this file to reconfigure roles, then regenerates
+# the StaffEngine bundle with: python scripts/build_staff_bundle.py
+
+name: South China Sea Conflict - Joint Task Force
+description: Six-role hierarchy for the South China Sea Conflict wargame. Instantiated for both Red and Blue teams.
+roles:
+  - id: force_commander
+    name: Force Commander
+    rank: 1
+    description: Overall commander for the South China Sea Conflict scenario. Sets campaign objectives, allocates forces, and approves the air tasking order.
+    responsibilities:
+      - Define campaign objectives and commander's intent
+      - Allocate air, maritime, and support assets between lines of effort
+      - Approve or redirect the integrated tasking order each turn
+      - Assess battle damage and adjust strategy
+    doctrine_focus: [JP 3-0 Joint Operations, AFDP 3-0 Operations, NWP 5-01 Navy Planning]
+    reports_to: null
+
+  - id: intelligence_officer
+    name: Intelligence Officer
+    rank: 2
+    description: "Produces the intelligence picture: enemy order of battle, target nominations, and threat assessments."
+    responsibilities:
+      - Maintain enemy order of battle and target list
+      - Nominate targets with priority and rationale
+      - Assess enemy air defence and maritime threats
+      - Provide intelligence preparation of the battlespace
+    doctrine_focus: [AFDP 3-01 Counterair, JP 3-02 Amphibious Operations, MCDP 1 Warfighting]
+    reports_to: force_commander
+
+  - id: targeteer
+    name: Targeteer / Weaponeering Cell
+    rank: 2
+    description: Determines whether nominated targets can be struck — weapon-target pairing, collateral considerations, and feasibility.
+    responsibilities:
+      - Match weapons to targets (weaponeering)
+      - "Check target feasibility: range, defences, weather, timing"
+      - Produce the joint target list with desired effects
+      - Coordinate with support planners on tanker and SEAD needs
+    doctrine_focus: [AFDP 3-60 Targeting, AFDP 3-01 Counterair, JP 3-18 Joint Forcible Entry]
+    reports_to: force_commander
+
+  - id: support_planner
+    name: Support Planner
+    rank: 2
+    description: "Plans enabling capabilities: aerial refuelling, airlift, sustainment, and basing."
+    responsibilities:
+      - Plan tanker tracks and air refuelling support
+      - Coordinate airlift and sustainment flows
+      - Manage basing, dispersal, and force protection for air assets
+      - Identify support gaps that constrain operations
+    doctrine_focus: [AFDP 3-36 Mobility Operations, AFDN 1-21 Agile Combat Employment, NWP 5-01]
+    reports_to: force_commander
+
+  - id: air_wing_commander
+    name: Air Wing Commander
+    rank: 3
+    description: "Commands the air wing: fighters, bombers, and ISR. Converts the tasking order into specific sorties and ITO entries."
+    responsibilities:
+      - "Generate air sorties: CAP, sweep, strike, SEAD, ISR"
+      - Assign squadrons and loadouts to ITO taskings
+      - Manage air-to-air and air-to-ground engagements
+      - Report air battle results and attrition
+    doctrine_focus: [AFDP 3-01 Counterair, AFDP 3-03 Counterland, AFDP 3-60 Targeting]
+    reports_to: force_commander
+
+  - id: maritime_commander
+    name: Maritime Commander
+    rank: 3
+    description: Commands surface and subsurface forces — destroyers, amphibious ships, and submarines.
+    responsibilities:
+      - Plan surface manoeuvre and naval fires
+      - Coordinate ship-to-shore movement (if amphibious phase active)
+      - Provide air defence from Aegis and coordinate with air wing
+      - Report maritime battle results and sea control status
+    doctrine_focus: [NTTP 3-02.1 Ship-to-Shore Movement, NTTP 3-02.2 Supporting Arms Coordination, JP 3-02 Amphibious Operations]
+    reports_to: force_commander

@@ -1,0 +1,62 @@
+{
+  "name": "Blue Air Drop",
+  "team_id": 1,
+  "targets": [],
+  "elements": [
+    {
+      "name": "Blue Air Drop - C-17A",
+      "element_type": "Air Drop",
+      "platform_id": 1150,
+      "loadout": null,
+      "quantity": 1,
+      "assets": [
+        {
+          "id": 298
+        }
+      ],
+      "origin_id": 2485,
+      "destination_id": 2485,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            127.6455,
+            26.198
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            126.3227,
+            27.349
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "airdrop",
+          "movement_phase_type": "ingress",
+          "location": [
+            125.0,
+            28.5
+          ],
+          "timestamp": "2025-01-01T12:00:00Z",
+          "target_weapon_allocation_ids": []
+        }
+      ],
+      "drop_manifest": [
+        {
+          "asset_type": "PERS",
+          "quantity": 150
+        }
+      ]
+    }
+  ]
+}

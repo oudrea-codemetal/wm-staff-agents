@@ -1,0 +1,77 @@
+{
+  "name": "Red DDG Base Strike ECS",
+  "team_id": 2,
+  "targets": [
+    {
+      "lsa_id": 2203,
+      "subtargets": [],
+      "weapon_allocations": [
+        {
+          "local_id": 1,
+          "weapon_id": 1265,
+          "weapon_code": "YJ_2_Eagle_Strike_II_Ying_Ji",
+          "quantity": 6,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        },
+        {
+          "local_id": 2,
+          "weapon_id": 1143,
+          "weapon_code": "SS_N_22_Sunburn_P_270_Moskit",
+          "quantity": 4,
+          "planned_impact_time": "2025-01-01T08:00:00Z"
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "Red DDG Base Strike ECS",
+      "element_type": "Navy Fires",
+      "platform_id": null,
+      "loadout": null,
+      "quantity": 1,
+      "assets": [
+        {
+          "id": 2539
+        }
+      ],
+      "origin_id": 60,
+      "destination_id": 60,
+      "routings": [
+        {
+          "sequence_number": 1,
+          "routing_type": "departure",
+          "movement_phase_type": "ingress",
+          "location": [
+            122.1833,
+            30.2333
+          ],
+          "timestamp": "2025-01-01T00:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 2,
+          "routing_type": "waypoint",
+          "movement_phase_type": "ingress",
+          "location": [
+            123.8417,
+            29.6167
+          ],
+          "timestamp": "2025-01-01T03:00:00Z",
+          "target_weapon_allocation_ids": []
+        },
+        {
+          "sequence_number": 3,
+          "routing_type": "launch_box",
+          "movement_phase_type": "ingress",
+          "location": [
+            125.5,
+            29.0
+          ],
+          "timestamp": "2025-01-01T08:00:00Z",
+          "target_weapon_allocation_ids": []
+        }
+      ]
+    }
+  ]
+}

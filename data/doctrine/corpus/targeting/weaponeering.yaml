@@ -1,0 +1,17 @@
+description: 'Weaponeering matches weapon effects to target vulnerability: select
+  the minimum force needed to achieve the desired effect while managing collateral
+  risk. Consider weapon availability, delivery platform range, and enemy defences.'
+identifiers:
+  standard_rules:
+    AFDP 3-60 Targeting:
+    - targeting/weaponeering
+applicability:
+  type: pattern_match
+  pattern: targeting|weaponeering|weapon|strike
+tags:
+- targeting
+- weaponeering
+- effects
+rationale: Efficient weaponeering preserves sorties and munitions for the broader
+  campaign.
+caveats: []
