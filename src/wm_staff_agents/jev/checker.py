@@ -55,7 +55,7 @@ class JevClient:
         self,
         base_url: str = JEV_DEFAULT_URL,
         model: str = JEV_DEFAULT_MODEL,
-        timeout: float = 30.0,
+        timeout: float = 5.0,
     ) -> None:
         self.base_url = base_url.rstrip("/")
         self.model = model
