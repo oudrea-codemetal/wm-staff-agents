@@ -6,9 +6,9 @@ A demonstration of hierarchical wargaming on the WarMatrix platform. Teams of ro
 
 ## What it does
 
-- **Configurable staff hierarchy** — any set of roles defined in `config/roles.yaml` by name, mission, inputs (what they receive) and outputs (what they decide). The shipped 6-role example (Force Commander → Intelligence → Targeteer → Support Planner → Air Wing Commander → Maritime Commander) is one possible map; see `config/roles.example-minimal.yaml` for a 3-role alternative and `docs/staff-maps.md` for how to create your own
-- **Doctrine-grounded decisions**: every agent choice cites open-source doctrine (AFDP, JP, NTTP, MCDP, NWP) and is checked by a Jev-powered doctrine checker
-- **WarMatrix via MCP only**: all game operations go through the WarMatrix MCP server — no direct HTTP calls
+- **Configurable staff hierarchy** — any set of roles defined in `config/roles.yaml` by name, mission, inputs (what they receive) and outputs (what they decide). The shipped 6-role example (Force Commander → Intelligence → Targeteer → Support Planner → Air Wing Commander → Maritime Commander) is one possible map; see `config/roles.example-minimal.yaml` for a 3-role alternative and `docs/staff-maps.md` for how to create your own. Execution order derives from declared input/output wiring, not hardcoded role IDs
+- **Doctrine-grounded decisions**: every agent choice cites open-source doctrine (AFDP, JP, NTTP, MCDP, NWP) and is checked by a Jev-powered doctrine checker (falls back to keyword grounding when Jev is unavailable)
+- **WarMatrix via MCP only**: all game operations go through the WarMatrix MCP server when WarMatrix is deployed (`--warmatrix` flag with `WM_API_URL` set). When WarMatrix is not deployed, the game uses synthetic laydown and local dice adjudication — the same turn loop, just without live ITO feasibility checks
 - **Dice-roll adjudication**: WarMatrix's `DIE_ROLL` adapter for fast, explainable combat resolution (no AFSIM dependency)
 - **Human slot in/out**: anyone can take over any role through the web UI or Slack; the agent resumes with the handover note
 - **Slack team channels**: `#wargame-red` and `#wargame-blue` for staff deliberation
@@ -65,9 +65,9 @@ Roles × Teams  ──►  RoleAgents (cm.ai)  ──────┘    ┌─�
 |------|-----------|
 | `src/wm_staff_agents/roles/` | Role hierarchy and team/slot management |
 | `src/wm_staff_agents/doctrine/` | Doctrine corpus (16 conventions from 12 open-source pubs) |
-| `src/wm_staff_agents/warmatrix/` | WarMatrix MCP client, ITO builder, dice roller |
+| `src/wm_staff_agents/warmatrix/` | WarMatrix MCP client (optional), ITO builder, dice roller |
 | `src/wm_staff_agents/agents/` | Per-role LLM agents and turn orchestrator |
-| `src/wm_staff_agents/jev/` | Jev-backed doctrine checker |
+| `src/wm_staff_agents/jev/` | Jev-backed doctrine checker (with keyword fallback) |
 | `src/wm_staff_agents/slack/` | Slack bridge (Socket Mode, with log-only fallback) |
 | `src/wm_staff_agents/game/` | Scenario and game engine (turn loop, reports) |
 | `src/wm_staff_agents/ui/` | FastAPI web UI for slot in/out and game control |
@@ -87,11 +87,14 @@ All WarMatrix execution must run on AWS (not locally). To replicate:
 ./scripts/provision-aws.sh
 
 # On the AWS box:
-git clone https://github.com/CodeMetalAI/wm-staff-agents.git
+git clone https://github.com/oudrea-codemetal/wm-staff-agents.git
 cd wm-staff-agents
 uv sync --locked
 cp .env.example .env  # set WM_API_URL, WM_BEARER_TOKEN, OPENAI_API_KEY, etc.
+# Without WarMatrix: uses synthetic laydown + local dice (no WarMatrix needed to try the game)
 uv run python -m wm_staff_agents.cli run --turns 6
+# With WarMatrix: add --warmatrix for live ITO feasibility via MCP
+# uv run python -m wm_staff_agents.cli run --turns 6 --warmatrix
 uv run python -m wm_staff_agents.cli serve --port 8080 --host 0.0.0.0
 ```
 
@@ -120,7 +123,7 @@ All doctrine is open-source and stored in `data/doctrine/sources/`:
 | StaffEngine | Roles need a visual, approvable definition that both operators and engineers can read. StaffEngine is that surface — one document, two projections (canvas + review). The bundle it generates is the contract. |
 | Mercury cm.ai | Individual agents need structured LLM orchestration: prompt templates with doctrine injection, tool use, and conversation memory. cm.ai provides that as a typed, testable runtime rather than raw HTTP calls. |
 | DCF corpus | Doctrine is not a single document — it is 12 publications with overlapping principles. DCF's convention model (applicability predicates + digest) selects the right doctrine for each role and task, so the Force Commander sees joint planning doctrine while the Targeteer sees weaponeering rules. |
-| Jev checker | Regex anti-pattern scans work for code, not for reasoning. Jev evaluates whether an agent's justification actually follows from the doctrine it cites — a language judgment, not a string match. Without it, agents could cite doctrine without applying it. |
-| WarMatrix MCP | WarMatrix owns the authoritative game state (laydown, ITO, adjudication). Going through MCP keeps the demo honest — it cannot invent forces or ignore feasibility checks. MCP also scopes access per game/team. |
+| Jev checker | Regex anti-pattern scans work for code, not for reasoning. Jev evaluates whether an agent's justification actually follows from the doctrine it cites — a language judgment, not a string match. Falls back to keyword grounding when Jev is unavailable so the game remains playable. |
+| WarMatrix MCP | WarMatrix owns the authoritative game state (laydown, ITO, adjudication) when deployed. Going through MCP keeps the demo honest — it cannot invent forces or ignore feasibility checks. When WarMatrix is not deployed, the game uses synthetic laydown and local dice with the same turn loop. |
 | Slack | Staff deliberation is inherently multi-party and asynchronous. Slack gives each team a persistent, auditable channel where agents and humans converse in the same place. |
 | Dice roll | Full physics simulation (AFSIM) requires classified terrain and platform data. Dice rolls give plausible, fast, explainable outcomes that are sufficient for demonstrating hierarchical decision-making without a simulator dependency. |
