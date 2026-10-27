@@ -6,7 +6,7 @@ A demonstration of hierarchical wargaming on the WarMatrix platform. Teams of ro
 
 ## What it does
 
-- **6-role hierarchy** defined in StaffEngine (Force Commander → Intelligence → Targeteer → Support Planner → Air Wing Commander → Maritime Commander), mirrored for Red and Blue teams
+- **Configurable staff hierarchy** — any set of roles defined in `config/roles.yaml` by name, mission, inputs (what they receive) and outputs (what they decide). The shipped 6-role example (Force Commander → Intelligence → Targeteer → Support Planner → Air Wing Commander → Maritime Commander) is one possible map; see `config/roles.example-minimal.yaml` for a 3-role alternative and `docs/staff-maps.md` for how to create your own
 - **Doctrine-grounded decisions**: every agent choice cites open-source doctrine (AFDP, JP, NTTP, MCDP, NWP) and is checked by a Jev-powered doctrine checker
 - **WarMatrix via MCP only**: all game operations go through the WarMatrix MCP server — no direct HTTP calls
 - **Dice-roll adjudication**: WarMatrix's `DIE_ROLL` adapter for fast, explainable combat resolution (no AFSIM dependency)
@@ -71,7 +71,8 @@ Roles × Teams  ──►  RoleAgents (cm.ai)  ──────┘    ┌─�
 | `src/wm_staff_agents/slack/` | Slack bridge (Socket Mode, with log-only fallback) |
 | `src/wm_staff_agents/game/` | Scenario and game engine (turn loop, reports) |
 | `src/wm_staff_agents/ui/` | FastAPI web UI for slot in/out and game control |
-| `config/` | Administrator-editable YAML (roles, scenario, doctrine) |
+| `config/` | Administrator-editable YAML (roles, scenario, doctrine) — any staff map works, not just the shipped 6-role one |
+| `config/roles.example-minimal.yaml` | 3-role minimal staff map example |
 | `data/doctrine/` | Open-source doctrine PDFs and DCF corpus YAML |
 | `data/scenarios/` | WarMatrix scenario data (ITO fixtures, laydown) |
 | `staff_engine/` | Generated StaffEngine bundle for visual editing |

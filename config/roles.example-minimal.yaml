@@ -1,0 +1,57 @@
+# Minimal example: a 3-role staff map for the same South China Sea Conflict scenario.
+# This shows that any staff map works — not just the shipped 6-role one.
+# Copy to config/roles.yaml and run: python scripts/build_staff_bundle.py && pytest tests/
+
+name: Minimal Staff — 3 Roles
+description: A minimal 3-role hierarchy showing the configurable staff map. Any roles work.
+roles:
+  - id: commander
+    name: Commander
+    rank: 1
+    description: Sets overall objectives and intent for the South China Sea Conflict scenario.
+    responsibilities:
+      - Define campaign objectives and intent
+      - Approve the tasking order
+    doctrine_focus: [JP 3-0 Joint Operations, NWP 5-01 Navy Planning]
+    inputs: []
+    outputs: [commander_intent, objectives]
+    reports_to: null
+    task_prompt: >-
+      Set the commander's intent and objectives for this turn. Respond as JSON with keys:
+      intent (one-paragraph intent), objectives (list), priority, constraints, doctrine_refs.
+    expected_keys: [intent, objectives, priority, constraints, doctrine_refs]
+
+  - id: planner
+    name: Planner
+    rank: 2
+    description: Plans all operations — targeting, support, and force allocation.
+    responsibilities:
+      - Nominate and prioritise targets
+      - Plan support and allocate forces
+      - Check feasibility
+    doctrine_focus: [AFDP 3-60 Targeting, AFDP 3-36 Mobility Operations]
+    inputs: [commander_intent]
+    outputs: [targets, support_plan, air_sorties]
+    reports_to: commander
+    task_prompt: >-
+      Given the commander's intent, plan this turn's operations. Nominate targets,
+      check feasibility, and generate sorties. Respond as JSON with keys: targets,
+      support_plan, sorties (list of {platform_code, base, mission_type, quantity, rationale}),
+      summary, doctrine_refs.
+    expected_keys: [targets, support_plan, sorties, summary, doctrine_refs]
+
+  - id: executor
+    name: Executor
+    rank: 3
+    description: Executes maritime and surface operations in coordination with air.
+    responsibilities:
+      - Plan surface manoeuvre and naval fires
+      - Coordinate with air operations
+    doctrine_focus: [NTTP 3-02.1 Ship-to-Shore Movement, JP 3-02 Amphibious Operations]
+    inputs: [air_sorties]
+    outputs: [maritime_taskings]
+    reports_to: commander
+    task_prompt: >-
+      Given the air plan, generate maritime taskings. Respond as JSON with keys:
+      taskings (list of {platform_code, base, mission_type, quantity, rationale}), summary, doctrine_refs.
+    expected_keys: [taskings, summary, doctrine_refs]
