@@ -1,9 +1,14 @@
 import asyncio
+from pathlib import Path
 
 from wm_staff_agents.doctrine.corpus import DEFAULT_CORPUS
 from wm_staff_agents.game.engine import GameEngine
 from wm_staff_agents.game.scenario import DEFAULT_SCENARIO
-from wm_staff_agents.roles.hierarchy import DEFAULT_HIERARCHY
+from wm_staff_agents.roles.hierarchy import load_hierarchy
+
+
+def _hierarchy():
+    return load_hierarchy(Path("config/roles.yaml"))
 
 
 def test_dice_roller_deterministic():
@@ -16,27 +21,21 @@ def test_dice_roller_deterministic():
 
 def test_slot_in_out():
     from wm_staff_agents.roles.team import Team, default_team_configs
-    rc, bc = default_team_configs(DEFAULT_HIERARCHY)
-    team = Team(hierarchy=DEFAULT_HIERARCHY, config=rc)
+    h = _hierarchy()
+    rc, bc = default_team_configs(h)
+    team = Team(hierarchy=h, config=rc)
     assert team.slot_for("force_commander").is_agent
-
     team2 = team.slot_in("force_commander", "alice", "hold the strait")
     assert team2.slot_for("force_commander").is_human
     assert team2.slot_for("force_commander").holder == "alice"
-
     team3 = team2.slot_out("force_commander", "returning to agent")
     assert team3.slot_for("force_commander").is_agent
 
 
 def test_game_engine_runs_one_turn_no_llm():
-    """Runs one turn with human overrides (no LLM needed)."""
-    engine = GameEngine(
-        scenario=DEFAULT_SCENARIO,
-        hierarchy=DEFAULT_HIERARCHY,
-        doctrine_corpus=DEFAULT_CORPUS,
-    )
-    # Provide human input for all roles so no LLM call happens
-    for role in DEFAULT_HIERARCHY.roles:
+    h = _hierarchy()
+    engine = GameEngine(scenario=DEFAULT_SCENARIO, hierarchy=h, doctrine_corpus=DEFAULT_CORPUS)
+    for role in h.roles:
         engine.red_orch.set_human_input(role.id, '{"summary": "test", "doctrine_refs": []}')
         engine.blue_orch.set_human_input(role.id, '{"summary": "test", "doctrine_refs": []}')
 
@@ -63,3 +62,26 @@ def test_ito_builder():
     assert len(ito.sorties) == 1
     assert ito.sorties[0].platform_code == "F-16C"
     assert "South China Sea Conflict" in ito.mission_name
+
+
+def test_custom_hierarchy_game():
+    """A fully custom 3-role hierarchy can run a turn."""
+    from wm_staff_agents.roles.hierarchy import Role, RoleHierarchy
+    custom = RoleHierarchy(
+        name="Minimal", description="3-role test",
+        roles=(
+            Role(id="commander", name="Commander", rank=1, description="Commands", outputs=("intent",)),
+            Role(id="planner", name="Planner", rank=2, description="Plans", inputs=("intent",), outputs=("sorties",)),
+            Role(id="executor", name="Executor", rank=3, description="Executes", inputs=("sorties",), outputs=("results",)),
+        ),
+    )
+    engine = GameEngine(scenario=DEFAULT_SCENARIO, hierarchy=custom, doctrine_corpus=DEFAULT_CORPUS)
+    for role in custom.roles:
+        engine.red_orch.set_human_input(role.id, '{"summary": "test", "doctrine_refs": []}')
+        engine.blue_orch.set_human_input(role.id, '{"summary": "test", "doctrine_refs": []}')
+
+    async def run():
+        report = await engine.run_turn(1)
+        assert report.turn == 1
+
+    asyncio.run(run())

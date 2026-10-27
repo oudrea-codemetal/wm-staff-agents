@@ -19,8 +19,8 @@
         "label": "FORCE COMMANDER",
         "type": "agent",
         "config": {
-          "system": "You are the Force Commander in the South China Sea Conflict wargame. Overall commander for the South China Sea Conflict scenario. Sets campaign objectives, allocates forces, and approves the air tasking order.",
-          "task": "{{input}}",
+          "system": "You are the Force Commander — Overall commander. Sets campaign objectives, allocates forces, and approves the tasking order.",
+          "task": "Set the commander's intent and objectives for this turn. Consider the full campaign, not just this move in isolation. Respond as JSON with keys: inten...",
           "model": "gpt-4o-mini"
         },
         "inputType": "ty_force_commander",
@@ -32,8 +32,8 @@
         "label": "INTELLIGENCE OFFICER",
         "type": "agent",
         "config": {
-          "system": "You are the Intelligence Officer in the South China Sea Conflict wargame. Produces the intelligence picture: enemy order of battle, target nominations, and threat assessments.",
-          "task": "{{input}}",
+          "system": "You are the Intelligence Officer — Produces the intelligence picture — enemy order of battle, target nominations, and threat assessments.",
+          "task": "Given the commander's intent, nominate targets and assess threats. What should be struck, and what enemy capabilities threaten friendly forces? Respon...",
           "model": "gpt-4o-mini"
         },
         "inputType": "ty_intelligence_officer",
@@ -45,8 +45,8 @@
         "label": "TARGETEER / WEAPONEERING CELL",
         "type": "agent",
         "config": {
-          "system": "You are the Targeteer / Weaponeering Cell in the South China Sea Conflict wargame. Determines whether nominated targets can be struck — weapon-target pairing, collateral considerations, and feasibility.",
-          "task": "{{input}}",
+          "system": "You are the Targeteer / Weaponeering Cell — Determines whether nominated targets can be struck — weapon-target pairing, collateral, and feasibility.",
+          "task": "For each nominated target, assess feasibility and recommend weapon-target pairing. Consider range, defences, collateral, and timing. Respond as JSON w...",
           "model": "gpt-4o-mini"
         },
         "inputType": "ty_targeteer",
@@ -58,8 +58,8 @@
         "label": "SUPPORT PLANNER",
         "type": "agent",
         "config": {
-          "system": "You are the Support Planner in the South China Sea Conflict wargame. Plans enabling capabilities: aerial refuelling, airlift, sustainment, and basing.",
-          "task": "{{input}}",
+          "system": "You are the Support Planner — Plans enabling capabilities — aerial refuelling, airlift, sustainment, and basing.",
+          "task": "Plan support for this turn's operations. What tankers, airlift, or basing moves are needed? What support gaps constrain operations? Respond as JSON wi...",
           "model": "gpt-4o-mini"
         },
         "inputType": "ty_support_planner",
@@ -71,8 +71,8 @@
         "label": "AIR WING COMMANDER",
         "type": "agent",
         "config": {
-          "system": "You are the Air Wing Commander in the South China Sea Conflict wargame. Commands the air wing: fighters, bombers, and ISR. Converts the tasking order into specific sorties and ITO entries.",
-          "task": "{{input}}",
+          "system": "You are the Air Wing Commander — Commands the air wing — fighters, bombers, and ISR. Converts the tasking order into ITO sorties.",
+          "task": "Generate air sorties for this turn. Assign platforms, bases, loadouts, and patrol geometry. Consider air superiority, strike, and SEAD needs. Respond ...",
           "model": "gpt-4o-mini"
         },
         "inputType": "ty_air_wing_commander",
@@ -84,8 +84,8 @@
         "label": "MARITIME COMMANDER",
         "type": "agent",
         "config": {
-          "system": "You are the Maritime Commander in the South China Sea Conflict wargame. Commands surface and subsurface forces — destroyers, amphibious ships, and submarines.",
-          "task": "{{input}}",
+          "system": "You are the Maritime Commander — Commands surface and subsurface forces — destroyers, amphibious ships, and submarines.",
+          "task": "Generate maritime taskings for this turn. Plan surface manoeuvre, naval fires, and coordination with air. Consider sea control and Aegis coverage. Res...",
           "model": "gpt-4o-mini"
         },
         "inputType": "ty_maritime_commander",
@@ -95,16 +95,7 @@
     ],
     "edges": [
       {
-        "id": "e_source_to_fc",
-        "from": "n_source",
-        "to": "n_force_commander",
-        "mods": {
-          "retries": 1,
-          "timeout": 30
-        }
-      },
-      {
-        "id": "e_intelligence_officer_to_force_commander",
+        "id": "e_force_commander_to_intelligence_officer__commander_intent",
         "from": "n_force_commander",
         "to": "n_intelligence_officer",
         "mods": {
@@ -113,8 +104,8 @@
         }
       },
       {
-        "id": "e_targeteer_to_force_commander",
-        "from": "n_force_commander",
+        "id": "e_intelligence_officer_to_targeteer__targets",
+        "from": "n_intelligence_officer",
         "to": "n_targeteer",
         "mods": {
           "retries": 1,
@@ -122,8 +113,8 @@
         }
       },
       {
-        "id": "e_support_planner_to_force_commander",
-        "from": "n_force_commander",
+        "id": "e_targeteer_to_support_planner__targeting_plan",
+        "from": "n_targeteer",
         "to": "n_support_planner",
         "mods": {
           "retries": 1,
@@ -131,8 +122,8 @@
         }
       },
       {
-        "id": "e_air_wing_commander_to_force_commander",
-        "from": "n_force_commander",
+        "id": "e_targeteer_to_air_wing_commander__targeting_plan",
+        "from": "n_targeteer",
         "to": "n_air_wing_commander",
         "mods": {
           "retries": 1,
@@ -140,12 +131,39 @@
         }
       },
       {
-        "id": "e_maritime_commander_to_force_commander",
-        "from": "n_force_commander",
+        "id": "e_support_planner_to_air_wing_commander__support_plan",
+        "from": "n_support_planner",
+        "to": "n_air_wing_commander",
+        "mods": {
+          "retries": 1,
+          "timeout": 120
+        }
+      },
+      {
+        "id": "e_intelligence_officer_to_air_wing_commander__threat_assessment",
+        "from": "n_intelligence_officer",
+        "to": "n_air_wing_commander",
+        "mods": {
+          "retries": 1,
+          "timeout": 120
+        }
+      },
+      {
+        "id": "e_targeteer_to_maritime_commander__targeting_plan",
+        "from": "n_targeteer",
         "to": "n_maritime_commander",
         "mods": {
           "retries": 1,
           "timeout": 120
+        }
+      },
+      {
+        "id": "e_source_to_force_commander",
+        "from": "n_source",
+        "to": "n_force_commander",
+        "mods": {
+          "retries": 1,
+          "timeout": 30
         }
       }
     ]
@@ -300,6 +318,123 @@
           "required": false
         }
       ]
+    },
+    {
+      "id": "ty_out_commander_intent",
+      "name": "commander_intent",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "value",
+          "kind": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "ty_out_objectives",
+      "name": "objectives",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "value",
+          "kind": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "ty_out_targets",
+      "name": "targets",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "value",
+          "kind": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "ty_out_threat_assessment",
+      "name": "threat_assessment",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "value",
+          "kind": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "ty_out_targeting_plan",
+      "name": "targeting_plan",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "value",
+          "kind": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "ty_out_deferred_targets",
+      "name": "deferred_targets",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "value",
+          "kind": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "ty_out_support_plan",
+      "name": "support_plan",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "value",
+          "kind": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "ty_out_air_sorties",
+      "name": "air_sorties",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "value",
+          "kind": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "ty_out_maritime_taskings",
+      "name": "maritime_taskings",
+      "version": 1,
+      "fields": [
+        {
+          "id": "f0",
+          "key": "value",
+          "kind": "string",
+          "required": true
+        }
+      ]
     }
   ],
   "configs": [],
@@ -308,31 +443,31 @@
       "id": "ps_force_commander",
       "name": "Force Commander",
       "version": 1,
-      "note": "Overall commander for the South China Sea Conflict scenario. Sets campaign objectives, allocates forces, and approves the air tasking order."
+      "note": "Overall commander. Sets campaign objectives, allocates forces, and approves the tasking order."
     },
     {
       "id": "ps_intelligence_officer",
       "name": "Intelligence Officer",
       "version": 1,
-      "note": "Produces the intelligence picture: enemy order of battle, target nominations, and threat assessments."
+      "note": "Produces the intelligence picture — enemy order of battle, target nominations, and threat assessments."
     },
     {
       "id": "ps_targeteer",
       "name": "Targeteer / Weaponeering Cell",
       "version": 1,
-      "note": "Determines whether nominated targets can be struck — weapon-target pairing, collateral considerations, and feasibility."
+      "note": "Determines whether nominated targets can be struck — weapon-target pairing, collateral, and feasibility."
     },
     {
       "id": "ps_support_planner",
       "name": "Support Planner",
       "version": 1,
-      "note": "Plans enabling capabilities: aerial refuelling, airlift, sustainment, and basing."
+      "note": "Plans enabling capabilities — aerial refuelling, airlift, sustainment, and basing."
     },
     {
       "id": "ps_air_wing_commander",
       "name": "Air Wing Commander",
       "version": 1,
-      "note": "Commands the air wing: fighters, bombers, and ISR. Converts the tasking order into specific sorties and ITO entries."
+      "note": "Commands the air wing — fighters, bombers, and ISR. Converts the tasking order into ITO sorties."
     },
     {
       "id": "ps_maritime_commander",
@@ -375,7 +510,7 @@
       120
     ],
     "n_intelligence_officer": [
-      200,
+      300,
       340
     ],
     "n_targeteer": [
@@ -383,15 +518,15 @@
       340
     ],
     "n_support_planner": [
-      1000,
+      900,
       340
     ],
     "n_air_wing_commander": [
-      350,
+      375,
       560
     ],
     "n_maritime_commander": [
-      850,
+      825,
       560
     ]
   }

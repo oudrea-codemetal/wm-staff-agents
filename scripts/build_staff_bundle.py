@@ -5,6 +5,8 @@ The bundle can be opened in StaffEngine (https://github.com/CodeMetalAI/StaffEng
 for visual editing and approval. The Python runtime reads config/roles.yaml directly;
 the bundle is for the StaffEngine UI only.
 
+No role is hardcoded — the bundle is generated from whatever roles are in the YAML.
+
 Usage:
     python scripts/build_staff_bundle.py
     python scripts/build_staff_bundle.py --roles config/roles.yaml --out staff_engine/south-china-sea-conflict.foundry.json
@@ -26,7 +28,13 @@ def build(roles_path: Path, out_path: Path) -> None:
     data = yaml.safe_load(roles_path.read_text())
     roles = data["roles"]
 
-    # One TypeDoc per role output — the contract that the next step relies on
+    # One TypeDoc per deliverable type
+    all_outputs: list[str] = []
+    for r in roles:
+        for o in r.get("outputs", []):
+            if o not in all_outputs:
+                all_outputs.append(o)
+
     types = []
     for r in roles:
         types.append({
@@ -39,89 +47,91 @@ def build(roles_path: Path, out_path: Path) -> None:
                 {"id": "f2", "key": "doctrine_refs", "kind": "array", "required": False},
             ],
         })
+    # Also types for each deliverable
+    for out in all_outputs:
+        tid = f"ty_out_{out}"
+        if not any(t["id"] == tid for t in types):
+            types.append({
+                "id": tid, "name": out, "version": 1,
+                "fields": [{"id": "f0", "key": "value", "kind": "string", "required": True}],
+            })
 
-    # Positions — one per role (StaffEngine: who is accountable)
+    # Positions — one per role
     positions = [
         {"id": f"ps_{r['id']}", "name": r["name"], "version": 1, "note": r["description"][:200]}
         for r in roles
     ]
 
-    # Nodes: one agent per role, arranged in hierarchy
-    # Layout: Force Commander at top, staff in middle, executors at bottom
-    nodes = []
-    edges = []
-
-    # Position helpers
-    rank_y = {1: 120, 2: 340, 3: 560}
-    rank_x_offsets = {1: [600], 2: [200, 600, 1000], 3: [350, 850]}
-
-    # Assign x positions within each rank
-    rank_counters: dict[int, int] = {}
+    # Nodes: one agent per role, laid out by rank
+    rank_y = {1: 120, 2: 340, 3: 560, 4: 780}
+    # Collect roles by rank for x positioning
+    by_rank: dict[int, list[dict]] = {}
     for r in roles:
-        rank = r["rank"]
-        idx = rank_counters.get(rank, 0)
-        xs = rank_x_offsets.get(rank, [600])
-        x = xs[min(idx, len(xs) - 1)] if xs else 600
-        y = rank_y.get(rank, 340)
-        rank_counters[rank] = idx + 1
+        by_rank.setdefault(r["rank"], []).append(r)
 
-        nodes.append({
-            "id": f"n_{r['id']}",
-            "label": r["name"].upper(),
-            "type": "agent",
-            "config": {
-                "system": f"You are the {r['name']} in the South China Sea Conflict wargame. {r['description']}",
-                "task": "{{input}}",
-                "model": "gpt-4o-mini",
-            },
-            "inputType": f"ty_{r['id']}",
-            "outputType": f"ty_{r['id']}",
-            "components": [],
-        })
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    layout: dict[str, list[int]] = {}
 
-    # Edges: reports_to relationships
-    for r in roles:
-        if r.get("reports_to"):
-            parent_id = r["reports_to"]
-            edges.append({
-                "id": f"e_{r['id']}_to_{parent_id}",
-                "from": f"n_{parent_id}",
-                "to": f"n_{r['id']}",
-                "mods": {"retries": 1, "timeout": 120},
-            })
-
-    # Also add a source node for game state input
-    nodes.insert(0, {
-        "id": "n_source",
-        "label": "GAME STATE",
-        "type": "source",
+    # Source node
+    nodes.append({
+        "id": "n_source", "label": "GAME STATE", "type": "source",
         "config": {"origin": "WarMatrix game state and previous turn outcome"},
-        "outputType": "ty_force_commander",
+        "outputType": f"ty_{roles[0]['id']}" if roles else "ty_generic",
         "components": [],
     })
-    edges.insert(0, {
-        "id": "e_source_to_fc",
-        "from": "n_source",
-        "to": "n_force_commander",
-        "mods": {"retries": 1, "timeout": 30},
-    })
+    layout["n_source"] = [600, 20]
 
-    # Layout
-    layout: dict[str, list[int]] = {}
-    for n in nodes:
-        # Find matching role for position
-        role_match = next((r for r in roles if f"n_{r['id']}" == n["id"]), None)
-        if role_match:
-            rank = role_match["rank"]
-            idx = [r for r in roles if r["rank"] == rank].index(role_match)
-            xs = rank_x_offsets.get(rank, [600])
-            x = xs[min(idx, len(xs) - 1)]
-            y = rank_y.get(rank, 340)
-            layout[n["id"]] = [x, y]
-        elif n["id"] == "n_source":
-            layout[n["id"]] = [600, 20]
+    for r in roles:
+        rank = r["rank"]
+        siblings = by_rank[rank]
+        idx = siblings.index(r)
+        total = len(siblings)
+        # Spread evenly across 1200px width
+        x = 150 + (900 // max(total, 1)) * idx + (900 // max(total, 1)) // 2 if total > 1 else 600
+        y = rank_y.get(rank, 340)
 
-    # Strip x/y from nodes for bundle format
+        inputs_desc = f"Needs: {', '.join(r.get('inputs', []))}" if r.get("inputs") else "No dependencies"
+        outputs_desc = f"Produces: {', '.join(r.get('outputs', []))}" if r.get("outputs") else ""
+        task = r.get("task_prompt", "")[:150] + "..." if r.get("task_prompt", "") else r["description"][:150]
+
+        nodes.append({
+            "id": f"n_{r['id']}", "label": r["name"].upper(), "type": "agent",
+            "config": {
+                "system": f"You are the {r['name']} — {r['description']}",
+                "task": task,
+                "model": "gpt-4o-mini",
+            },
+            "inputType": f"ty_{r['id']}", "outputType": f"ty_{r['id']}",
+            "components": [],
+        })
+        layout[f"n_{r['id']}"] = [x, y]
+
+    # Edges from input/output wiring
+    output_to_role: dict[str, str] = {}
+    for r in roles:
+        for o in r.get("outputs", []):
+            output_to_role[o] = r["id"]
+
+    for r in roles:
+        for inp in r.get("inputs", []):
+            producer = output_to_role.get(inp)
+            if producer:
+                edges.append({
+                    "id": f"e_{producer}_to_{r['id']}__{inp}",
+                    "from": f"n_{producer}", "to": f"n_{r['id']}",
+                    "mods": {"retries": 1, "timeout": 120},
+                })
+
+    # Also hierarchy edges (reports_to) as dashed/secondary — use relies-on style
+    # For now just use the data-flow edges above plus source→top
+    top_roles = [r for r in roles if not r.get("reports_to") and not r.get("inputs")]
+    for tr in top_roles:
+        edges.append({
+            "id": f"e_source_to_{tr['id']}", "from": "n_source", "to": f"n_{tr['id']}",
+            "mods": {"retries": 1, "timeout": 30},
+        })
+
     stripped = [{k: v for k, v in n.items() if k not in ("x", "y")} for n in nodes]
 
     bundle = {
@@ -138,7 +148,7 @@ def build(roles_path: Path, out_path: Path) -> None:
         ],
         "graphs": [],
         "self": {
-            "name": data.get("name", "South China Sea Conflict"),
+            "name": data.get("name", "Staff Map"),
             "budgets": {"ms_time": 30},
             "evals": [],
         },
@@ -149,6 +159,7 @@ def build(roles_path: Path, out_path: Path) -> None:
     out_path.write_text(json.dumps(bundle, indent=2, ensure_ascii=False) + "\n")
     print(f"Wrote {out_path}")
     print(f"  {len(nodes)} nodes, {len(edges)} edges, {len(positions)} positions")
+    print(f"  Execution levels determined by input/output wiring, not hardcoded")
 
 
 if __name__ == "__main__":

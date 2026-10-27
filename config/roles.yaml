@@ -1,6 +1,20 @@
-# Role hierarchy for the South China Sea Conflict wargame.
-# An administrator edits this file to reconfigure roles, then regenerates
-# the StaffEngine bundle with: python scripts/build_staff_bundle.py
+# Staff map for the South China Sea Conflict wargame.
+#
+# This file IS the hierarchy. There are no hardcoded roles — the game engine
+# reads this file and runs whatever roles it finds, ordered by their declared
+# inputs/outputs. To create a different staff map:
+#   1. Define each role: name, mission, what it needs (inputs), what it decides (outputs)
+#   2. Wire inputs to outputs: if role B needs "targets", some role A must produce "targets"
+#   3. Regenerate the StaffEngine bundle: python scripts/build_staff_bundle.py
+#
+# Each role declares:
+#   id, name, rank, description, responsibilities — who it is
+#   inputs  — deliverable names it needs from upstream roles
+#   outputs — deliverable names it produces for downstream roles
+#   doctrine_focus — which doctrine guides it
+#   reports_to — parent in hierarchy display (not execution order; inputs determine that)
+#   task_prompt — what it is asked each turn (optional; auto-generated if empty)
+#   expected_keys — JSON keys it should return
 
 name: South China Sea Conflict - Joint Task Force
 description: Six-role hierarchy for the South China Sea Conflict wargame. Instantiated for both Red and Blue teams.
@@ -8,62 +22,102 @@ roles:
   - id: force_commander
     name: Force Commander
     rank: 1
-    description: Overall commander for the South China Sea Conflict scenario. Sets campaign objectives, allocates forces, and approves the air tasking order.
+    description: Overall commander. Sets campaign objectives, allocates forces, and approves the tasking order.
     responsibilities:
       - Define campaign objectives and commander's intent
       - Allocate air, maritime, and support assets between lines of effort
       - Approve or redirect the integrated tasking order each turn
       - Assess battle damage and adjust strategy
     doctrine_focus: [JP 3-0 Joint Operations, AFDP 3-0 Operations, NWP 5-01 Navy Planning]
+    inputs: []
+    outputs: [commander_intent, objectives]
     reports_to: null
+    task_prompt: >-
+      Set the commander's intent and objectives for this turn. Consider the full campaign,
+      not just this move in isolation. Respond as JSON with keys: intent (one-paragraph
+      commander intent), objectives (list of objectives), priority (main effort), constraints,
+      and doctrine_refs (convention ids supporting your decisions).
+    expected_keys: [intent, objectives, priority, constraints, doctrine_refs]
 
   - id: intelligence_officer
     name: Intelligence Officer
     rank: 2
-    description: "Produces the intelligence picture: enemy order of battle, target nominations, and threat assessments."
+    description: Produces the intelligence picture — enemy order of battle, target nominations, and threat assessments.
     responsibilities:
       - Maintain enemy order of battle and target list
       - Nominate targets with priority and rationale
       - Assess enemy air defence and maritime threats
       - Provide intelligence preparation of the battlespace
     doctrine_focus: [AFDP 3-01 Counterair, JP 3-02 Amphibious Operations, MCDP 1 Warfighting]
+    inputs: [commander_intent]
+    outputs: [targets, threat_assessment]
     reports_to: force_commander
+    task_prompt: >-
+      Given the commander's intent, nominate targets and assess threats. What should be struck,
+      and what enemy capabilities threaten friendly forces? Respond as JSON with keys: targets
+      (list of {name, location, priority, rationale, threat_level}), threat_assessment (enemy
+      posture summary), collection_gaps (what is unknown), and doctrine_refs.
+    expected_keys: [targets, threat_assessment, collection_gaps, doctrine_refs]
 
   - id: targeteer
     name: Targeteer / Weaponeering Cell
     rank: 2
-    description: Determines whether nominated targets can be struck — weapon-target pairing, collateral considerations, and feasibility.
+    description: Determines whether nominated targets can be struck — weapon-target pairing, collateral, and feasibility.
     responsibilities:
       - Match weapons to targets (weaponeering)
       - "Check target feasibility: range, defences, weather, timing"
       - Produce the joint target list with desired effects
       - Coordinate with support planners on tanker and SEAD needs
     doctrine_focus: [AFDP 3-60 Targeting, AFDP 3-01 Counterair, JP 3-18 Joint Forcible Entry]
+    inputs: [targets]
+    outputs: [targeting_plan, deferred_targets]
     reports_to: force_commander
+    task_prompt: >-
+      For each nominated target, assess feasibility and recommend weapon-target pairing.
+      Consider range, defences, collateral, and timing. Respond as JSON with keys: solutions
+      (list of {target, feasible, weapon, platform, sorties_needed, collateral_risk, rationale}),
+      deferred (targets that cannot be struck this turn and why), and doctrine_refs.
+    expected_keys: [solutions, deferred, doctrine_refs]
 
   - id: support_planner
     name: Support Planner
     rank: 2
-    description: "Plans enabling capabilities: aerial refuelling, airlift, sustainment, and basing."
+    description: Plans enabling capabilities — aerial refuelling, airlift, sustainment, and basing.
     responsibilities:
       - Plan tanker tracks and air refuelling support
       - Coordinate airlift and sustainment flows
       - Manage basing, dispersal, and force protection for air assets
       - Identify support gaps that constrain operations
     doctrine_focus: [AFDP 3-36 Mobility Operations, AFDN 1-21 Agile Combat Employment, NWP 5-01]
+    inputs: [targeting_plan]
+    outputs: [support_plan]
     reports_to: force_commander
+    task_prompt: >-
+      Plan support for this turn's operations. What tankers, airlift, or basing moves are needed?
+      What support gaps constrain operations? Respond as JSON with keys: tanker_tracks (list of
+      {base, platform_code, orbit, rationale}), support_sorties (list of {platform_code, base,
+      mission_type, quantity, rationale}), gaps, and doctrine_refs.
+    expected_keys: [tanker_tracks, support_sorties, gaps, doctrine_refs]
 
   - id: air_wing_commander
     name: Air Wing Commander
     rank: 3
-    description: "Commands the air wing: fighters, bombers, and ISR. Converts the tasking order into specific sorties and ITO entries."
+    description: Commands the air wing — fighters, bombers, and ISR. Converts the tasking order into ITO sorties.
     responsibilities:
       - "Generate air sorties: CAP, sweep, strike, SEAD, ISR"
       - Assign squadrons and loadouts to ITO taskings
       - Manage air-to-air and air-to-ground engagements
       - Report air battle results and attrition
     doctrine_focus: [AFDP 3-01 Counterair, AFDP 3-03 Counterland, AFDP 3-60 Targeting]
+    inputs: [targeting_plan, support_plan, threat_assessment]
+    outputs: [air_sorties]
     reports_to: force_commander
+    task_prompt: >-
+      Generate air sorties for this turn. Assign platforms, bases, loadouts, and patrol geometry.
+      Consider air superiority, strike, and SEAD needs. Respond as JSON with keys: sorties (list of
+      {platform_code, base, mission_type, target_area, loadout, patrol_location, quantity, rationale,
+      doctrine_refs}) and summary.
+    expected_keys: [sorties, summary, doctrine_refs]
 
   - id: maritime_commander
     name: Maritime Commander
@@ -75,4 +129,12 @@ roles:
       - Provide air defence from Aegis and coordinate with air wing
       - Report maritime battle results and sea control status
     doctrine_focus: [NTTP 3-02.1 Ship-to-Shore Movement, NTTP 3-02.2 Supporting Arms Coordination, JP 3-02 Amphibious Operations]
+    inputs: [targeting_plan]
+    outputs: [maritime_taskings]
     reports_to: force_commander
+    task_prompt: >-
+      Generate maritime taskings for this turn. Plan surface manoeuvre, naval fires, and
+      coordination with air. Consider sea control and Aegis coverage. Respond as JSON with keys:
+      taskings (list of {platform_code, base, mission_type, target_area, quantity, rationale,
+      doctrine_refs}) and summary.
+    expected_keys: [taskings, summary, doctrine_refs]
